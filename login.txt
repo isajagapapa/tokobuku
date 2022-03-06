@@ -1,0 +1,4 @@
+username = admin
+password = admin
+
+php phpDocumentor.phar -d C:\xampp\htdocs\tokobuku -t C:\xampp\htdocs\tokobuku\docs

@@ -189,14 +189,25 @@ $randomcode1 = $_GET['randomcode'];
                                         <?php
 
                                         include 'config.php';
+                                        /**
+                                         * nilai awal variabel no
+                                         */
                                         $no = 1;
 
+                                        /**
+                                         * query lihat data
+                                         */
                                         $query = "SELECT t.id, t.id_buku, b.judul_buku, b.harga, t.jumlah, t.total FROM transaksi t, buku b where t.id_buku = b.id_buku 
                                     AND t.id_transaksi = '$randomcode1'";
 
+/**
+ * mengeksekusi query
+ */
                                         $result = mysqli_query($koneksi, $query);
 
+                                        //eksekusi jika jumlah baris lebih dari 0
                                         if ($result->num_rows > 0) {
+                                            //mengambil baris hasil sebagai array
                                             while ($data = mysqli_fetch_assoc($result)) {
                                         ?>
                                                 <tr>

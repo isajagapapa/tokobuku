@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -12,6 +15,9 @@ include 'config.php';
 
 <?php
 include 'randomcode.php';
+/**
+ * mengambil nilai dari randomcode
+ */
 $randomcode1 = $_GET['randomcode'];
 ?>
 
@@ -132,7 +138,13 @@ $randomcode1 = $_GET['randomcode'];
                         <form action="transaksidt_tambah.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group row">
                                 <?php
+                                /**
+                                 * eksekusi query
+                                 */
                                 $tgl = mysqli_query($koneksi, "SELECT tgl_transaksi FROM transaksidetail WHERE id_transaksi = '$randomcode1'");
+                                /**
+                                 * mengambil baris hasil sebagai array
+                                 */
                                 $ini = mysqli_fetch_assoc($tgl);
                                 ?>
                                 <label class="col-md-2 col-form-label">Tanggal</label>
@@ -153,10 +165,20 @@ $randomcode1 = $_GET['randomcode'];
                                     <select required name="id_buku" class="form-control">
                                         <option value="" disabled selected>--</option>
                                         <?php
+                                        /**
+                                         * query baca data
+                                         */
                                         $tampilkan_isi = "select * from buku where deleted = 0";
+                                        /**
+                                         * eksekusi query
+                                         */
                                         $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
+                                        /**
+                                         * nilai awal dari variabel $no
+                                         */
                                         $no = 1;
 
+                                        //membentuk dari perinah query kedalam baris array
                                         while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
                                             echo "<option value='" . $isi['id_buku'] . "'>" . $isi['judul_buku'] . "</option>";
                                         }
@@ -194,13 +216,17 @@ $randomcode1 = $_GET['randomcode'];
                                         <?php
 
                                         include 'config.php';
+                                        //nilai awal dari variabel $no
                                         $no = 1;
 
+                                        // query untuk melihat data
                                         $query = "SELECT t.id, t.id_buku, b.judul_buku, b.harga, t.jumlah, t.total FROM transaksi t, buku b where t.id_buku = b.id_buku 
                                     AND t.id_transaksi = '$randomcode1'";
 
+                                    //mengeksekusi query
                                         $result = mysqli_query($koneksi, $query);
 
+                                        //jika jumlah baris lebih dari 0
                                         if ($result->num_rows > 0) {
                                             while ($data = mysqli_fetch_assoc($result)) {
                                         ?>
@@ -223,15 +249,19 @@ $randomcode1 = $_GET['randomcode'];
 
                                         <?php
                                                 global $total_bayar;
+                                                //penambahan untuk mencari nilai total bayar
                                                 $total_bayar = $total_bayar + $data['total'];
                                             }
                                         } else {
                                             $total_bayar = null;
                                         }
 
+                                        //query untuk membaca data
                                         $query1 = "SELECT * FROM transaksidetail where deleted = 0 AND id_transaksi = '$randomcode1'";
+                                        //mengeksekusi query
                                         $result1 = mysqli_query($koneksi, $query1);
 
+                                        //eksekusi jika jumlah baris lebih dari 0
                                         if ($result1->num_rows > 0) {
                                             while ($data1 = mysqli_fetch_array($result1)) {
                                                 $diskon = $data1['diskon'];

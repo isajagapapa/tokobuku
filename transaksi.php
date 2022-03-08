@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -12,6 +15,9 @@ include 'config.php';
 
 <?php
 include 'randomcode.php';
+/**
+ * mengambil nilai dari randomcode
+ */
 $randomcode1 = $_GET['randomcode'];
 ?>
 

@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -9,11 +12,22 @@ if (!isset($_SESSION["login"])) {
 <?php
 include 'config.php';
 
+/**
+ * mengambil nilai dari id_buku
+ */
 $id_buku = $_GET['id_buku'];
 
+/**
+ * query untuk mengambil data dati tabel di database
+ */
 $query = "SELECT * FROM buku WHERE id_buku = '$id_buku'";
+/**
+ * mengeksekusi query
+ */
 $result = mysqli_query($koneksi, $query);
-
+/**
+ * nilai awal variabel item
+ */
 $item = '';
 
 if (mysqli_num_rows($result) == 1) {
@@ -180,9 +194,17 @@ include 'randomcode.php';
                                             <select required name="id_pengarang" class="form-control">
                                                 <option value="" disabled selected>--</option>
                                                 <?php
+                                                /**
+                                                 * query untuk memanggil data dari database
+                                                 */
                                                 $tampilkan_isi = "select * from pengarang";
+                                                /**
+                                                 * menajalankan query
+                                                 */
                                                 $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
-                                                $no = 1;
+                                                /**
+                                                 * variabel untuk menentukan tag
+                                                 */
                                                 $tag = '';
 
                                                 while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
@@ -204,9 +226,15 @@ include 'randomcode.php';
                                             <select required name="id_penerbit" class="form-control" required>
                                                 <option value="" disabled selected>--</option>
                                                 <?php
+                                                /**
+                                                 * query untuk memanggil data dari database
+                                                 */
                                                 $tampilkan_isi = "select * from penerbit";
+                                                /**
+                                                 * menajalankan query
+                                                 */
                                                 $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
-                                                $no = 1;
+                                                
 
                                                 while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
                                                     if ($item['id_penerbit'] == $isi['id_penerbit']) {
@@ -229,7 +257,7 @@ include 'randomcode.php';
                                                 <?php
                                                 $tampilkan_isi = "select * from kategori";
                                                 $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
-                                                $no = 1;
+                                                
 
                                                 while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
                                                     if ($item['id_kategori'] == $isi['id_kategori']) {

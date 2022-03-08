@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -139,12 +142,24 @@ include 'randomcode.php';
 
                                     include 'config.php';
 
+                                    /**
+                                     * nilai awal variabel no
+                                     */
                                     $no = 1;
 
+                                    /**
+                                     * query untuk melihat data
+                                     */
                                     $query = "SELECT * FROM transaksidetail where deleted=0";
 
+                                    /**
+                                     * eksekusi query
+                                     */
                                     $result = mysqli_query($koneksi, $query);
 
+                                    /**
+                                     * mengambil baris hasil sebagai array
+                                     */
                                     while ($data = mysqli_fetch_array($result)) {
                                     ?>
                                         <tr>

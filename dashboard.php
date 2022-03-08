@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;

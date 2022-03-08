@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -142,10 +145,19 @@ include 'randomcode.php';
 
                                     include 'config.php';
 
+                                    /**
+                                     * menentukan nilai awal dari variabel no
+                                     */
                                     $no = 1;
 
+                                    /**
+                                     * query untuk memanggil data dari tabel database
+                                     */
                                     $query = "SELECT * FROM pengarang where deleted=0";
 
+                                    /**
+                                     * menjalankan query
+                                     */
                                     $result = mysqli_query($koneksi, $query);
 
                                     while ($data = mysqli_fetch_array($result)) {

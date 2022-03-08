@@ -1,12 +1,17 @@
 <?php
 session_start();
+
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
-    header("location:index.php");
+        header("location:index.php");
     exit;
 }
 ?>
 
 <?php
+ // memanggil randomcode.php
 include 'randomcode.php';
 ?>
 
@@ -148,8 +153,14 @@ include 'randomcode.php';
 
                                     include 'config.php';
 
+                                    /**
+                                     * menentukan no awal
+                                     */
                                     $no = 1;
 
+                                    /**
+                                     *query untuk memanggil data dari tabel database
+                                     */
                                     $query
                                         = "SELECT b.id_buku,b.judul_buku,pg.nama_pengarang,pn.nama_penerbit,b.stok,kt.nama_kategori,b.gambar,b.deleted from buku b,pengarang pg,penerbit pn,kategori kt WHERE b.id_pengarang = pg.id_pengarang 
                                             AND
@@ -158,9 +169,15 @@ include 'randomcode.php';
                                             b.id_kategori = kt.id_kategori
                                             AND
                                             b.deleted = 0 ORDER BY b.id_buku";
-
+                                    
+                                    /**
+                                     * menjalankan koneksi ke database dan query
+                                     */
                                     $result = mysqli_query($koneksi, $query);
 
+                                    /**
+                                     * memasukkan nilai dari query ke tabel
+                                     */
                                     while ($data = mysqli_fetch_array($result)) {
                                     ?>
                                         <tr>

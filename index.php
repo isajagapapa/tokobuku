@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-//cek cookie
+/**
+ * mengecek cookie
+ */
 if (isset($_COOKIE['login'])) {
     if ($_COOKIE['login'] == 'true') {
         $_SESSION['login'] = true;
@@ -77,7 +79,11 @@ if (isset($_POST["login"])) {
                                     <input id="password" type="password" class="form-control" name="password" required>
                                 </div>
 
-                                <?php if (isset($error)) : ?>
+                                <?php 
+                                /**
+                                 * mengecek jika terjadi error
+                                 */
+                                if (isset($error)) : ?>
                                     <p style="color: red;">Username atau Password salah!</p>
                                 <?php endif; ?>
 

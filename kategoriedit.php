@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -9,12 +12,23 @@ if (!isset($_SESSION["login"])) {
 <?php
 include 'config.php';
 
-// mendapatkan nilai id
+/**
+ * mengambil nilai dari id_kategori
+ */
 $id_kategori = $_GET['id_kategori'];
 
+/**
+ * query untuk memanggil data dari tabel database
+ */
 $query = "SELECT * FROM kategori WHERE id_kategori = '$id_kategori'";
+/**
+ * mengeksekusi query
+ */
 $result = mysqli_query($koneksi, $query);
 
+/**
+ * penyimpan dari baris hasil
+ */
 $item = '';
 
 if (mysqli_num_rows($result) == 1) {

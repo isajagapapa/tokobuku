@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -9,12 +12,23 @@ if (!isset($_SESSION["login"])) {
 <?php
 include 'config.php';
 
-// mendapatkan nilai id
+/**
+ * mengambil nilai dari id_penerbit
+ */
 $id_penerbit = $_GET['id_penerbit'];
 
+/**
+ * query untuk memanggil data dari tabel database
+ */
 $query = "SELECT * FROM penerbit WHERE id_penerbit = '$id_penerbit'";
+/**
+ * mengeksekusi query
+ */
 $result = mysqli_query($koneksi, $query);
 
+/**
+ * penyimpan dari baris hasil
+ */
 $item = '';
 
 if (mysqli_num_rows($result) == 1) {

@@ -1,11 +1,21 @@
 <?php
 include 'config.php';
+/**
+ * mengambil nilai dari randomcode
+ */
 $rc = $_GET['randomcode'];
 
+/**
+ * query untuk melihat data
+ */
 $query2 = "SELECT * FROM transaksidetail WHERE id_transaksi = '$rc'";
 
+/**
+ * eksekusi query
+ */
 $head = mysqli_query($koneksi, $query2);
 
+//eksekusi jika jumlah baris lebih dari 0
 if ($head->num_rows > 0) {
     while ($data1 = mysqli_fetch_array($head)) {
         $id_t = $data1['id_transaksi'];
@@ -15,7 +25,9 @@ if ($head->num_rows > 0) {
     $id_t = "";
     $tanggal = "";
 }
-
+/**
+ * mengambil baris hasil sebagai array
+ */
 $data = mysqli_fetch_assoc($head);
 ?>
 <!doctype html>
@@ -55,14 +67,27 @@ $data = mysqli_fetch_assoc($head);
                     <?php
 
                     include 'config.php';
+                    /**
+                     * nilai awal variabel no
+                     */
                     $no = 1;
 
+                    /**
+                     * query untuk melihat data
+                     */
                     $query = "SELECT t.id_buku, b.judul_buku, b.harga, t.jumlah, t.total FROM transaksi t, buku b where t.id_buku = b.id_buku 
                                     AND t.id_transaksi = '$rc'";
 
+                    /**
+                     * mengeksekusi query
+                     */
                     $result = mysqli_query($koneksi, $query);
 
+                    /**
+                     * eksekusi jika jumlah baris lebih dari 0
+                     */
                     if ($result->num_rows > 0) {
+                        //mengambil baris hasil sebagai array
                         while ($data = mysqli_fetch_assoc($result)) {
                     ?>
                             <tr>
@@ -84,9 +109,16 @@ $data = mysqli_fetch_assoc($head);
                         $total_bayar = null;
                     }
 
+                    /**
+                     * query lihat data
+                     */
                     $query1 = "SELECT * FROM transaksidetail where deleted = 0 AND id_transaksi = '$rc'";
+                    /**
+                     * eksekusi query
+                     */
                     $result1 = mysqli_query($koneksi, $query1);
 
+                    //eksekusi jika jumlah baris lebih dari 0
                     if ($result1->num_rows > 0) {
                         while ($data1 = mysqli_fetch_array($result1)) {
                             $diskonn = $data1['diskon'];
@@ -96,10 +128,25 @@ $data = mysqli_fetch_assoc($head);
                             $kembali = $data1['kembali'];
                         }
                     } else {
+                        /**
+                         * nilai diskon sama dengan null
+                         */
                         $diskonn = null;
+                        /**
+                         * nilai potongan sama dengan null
+                         */
                         $potongan = null;
+                        /**
+                         * nilai total_bayar1 sama dengan null
+                         */
                         $total_bayar1 = null;
+                        /**
+                         * nilai bayar sama dengan null
+                         */
                         $bayar = null;
+                        /**
+                         * nilai kembali sama dengan null
+                         */
                         $kembali = null;
                     }
                     ?>

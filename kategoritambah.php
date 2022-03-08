@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -127,8 +130,17 @@ include 'randomcode.php';
                             <?php
                             include 'config.php';
 
+                            /**
+                             * query untuk menjumlahkan data dari tabel di database
+                             */
                             $tampilkan_isi = "select count(id_kategori) as jumlah from kategori;";
+                            /**
+                             * menajalankan query
+                             */
                             $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
+                            /**
+                             * menentukan nilai awal dari variabel no
+                             */
                             $no = 1;
 
                             while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {

@@ -1,5 +1,8 @@
 <?php
 session_start();
+/**
+ *  menggunakan session untuk mengecek bahwa telah login
+ */
 if (!isset($_SESSION["login"])) {
     header("location:index.php");
     exit;
@@ -133,8 +136,17 @@ include 'randomcode.php';
                         <form action="buku_add.php" method="POST" enctype="multipart/form-data">
 
                             <?php
+                            /**
+                             * query untuk menjumlahkan data dari tabel di database
+                             */
                             $tampilkan_isi = "select count(id_buku) as jumlah from buku;";
+                            /**
+                             * menajalankan query
+                             */
                             $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
+                            /**
+                             * menentukan nilai awal dari variabel no
+                             */
                             $no = 1;
 
                             while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
@@ -163,9 +175,15 @@ include 'randomcode.php';
                                     <select required name="id_pengarang" class="form-control">
                                         <option value="" disabled selected>--</option>
                                         <?php
+                                        /**
+                                         * query untuk memanggil data dari database
+                                         */
                                         $tampilkan_isi = "select * from pengarang";
+                                        /**
+                                         * menajalankan query
+                                         */
                                         $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
-                                        $no = 1;
+                                        
 
                                         while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
                                             echo "<option value='" . $isi['id_pengarang'] . "'>" . $isi['nama_pengarang'] . "</option>";
@@ -181,9 +199,15 @@ include 'randomcode.php';
                                     <select required name="id_penerbit" class="form-control" required>
                                         <option value="" disabled selected>--</option>
                                         <?php
+                                        /**
+                                         * query untuk memanggil data dari database
+                                         */
                                         $tampilkan_isi = "select * from penerbit";
+                                        /**
+                                         * menajalankan query
+                                         */
                                         $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
-                                        $no = 1;
+                                        
 
                                         while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
                                             echo "<option value='" . $isi['id_penerbit'] . "'>" . $isi['nama_penerbit'] . "</option>";
@@ -199,9 +223,15 @@ include 'randomcode.php';
                                     <select required name="id_kategori" class="form-control" required>
                                         <option value="" disabled selected>--</option>
                                         <?php
+                                        /**
+                                         * query untuk memanggil data dari database
+                                         */
                                         $tampilkan_isi = "select * from kategori where deleted = 0";
+                                        /**
+                                         * menajalankan query
+                                         */
                                         $tampilkan_isi_sql = mysqli_query($koneksi, $tampilkan_isi);
-                                        $no = 1;
+                                        
 
                                         while ($isi = mysqli_fetch_array($tampilkan_isi_sql)) {
                                             echo "<option value='" . $isi['id_kategori'] . "'>" . $isi['nama_kategori'] . "</option>";

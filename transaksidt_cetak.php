@@ -1,9 +1,18 @@
 <?php
 include 'config.php';
+/**
+ * mengambil nilai dari randomcode
+ */
 $rc = $_GET['randomcode'];
 
+/**
+ * query untuk menampilkan data dari database
+ */
 $query2 = "SELECT * FROM transaksidetail WHERE id_transaksi = '$rc'";
 
+/**
+ * mengeksekusi query
+ */
 $head = mysqli_query($koneksi, $query2);
 
 if ($head->num_rows > 0) {
@@ -16,6 +25,9 @@ if ($head->num_rows > 0) {
     $tanggal = "";
 }
 
+/**
+ * mengambil baris hasil
+ */
 $data = mysqli_fetch_assoc($head);
 ?>
 <!doctype html>
@@ -55,13 +67,25 @@ $data = mysqli_fetch_assoc($head);
                     <?php
 
                     include 'config.php';
+                    /**
+                     * menentukan nilai awal dari variabel no
+                     */
                     $no = 1;
 
+                    /**
+                     * query untuk membaca data dari database
+                     */
                     $query = "SELECT t.id_buku, b.judul_buku, b.harga, t.jumlah, t.total FROM transaksi t, buku b where t.id_buku = b.id_buku 
                                     AND t.id_transaksi = '$rc'";
 
+                    /**
+                     * mengeksekusi query
+                     */
                     $result = mysqli_query($koneksi, $query);
 
+                    /**
+                     * proses jika jumlah baris lebih dari 0
+                     */
                     if ($result->num_rows > 0) {
                         while ($data = mysqli_fetch_assoc($result)) {
                     ?>
@@ -84,7 +108,13 @@ $data = mysqli_fetch_assoc($head);
                         $total_bayar = null;
                     }
 
+                    /**
+                     * query untuk membaca data dari database
+                     */
                     $query1 = "SELECT * FROM transaksidetail where deleted = 0 AND id_transaksi = '$rc'";
+                    /**
+                     * mengeksekusi query
+                     */
                     $result1 = mysqli_query($koneksi, $query1);
 
                     if ($result1->num_rows > 0) {
@@ -96,10 +126,25 @@ $data = mysqli_fetch_assoc($head);
                             $kembali = $data1['kembali'];
                         }
                     } else {
+                        /**
+                         * menentukan nilai diskon = null
+                         */
                         $diskonn = null;
+                        /**
+                         * menentukan nilai potongan = null
+                         */
                         $potongan = null;
+                        /**
+                         * menentukan nilai total_bayar = null
+                         */
                         $total_bayar1 = null;
+                        /**
+                         * menentukan nilai bayar = null
+                         */
                         $bayar = null;
+                        /**
+                         * menentukan nilai kembali = null
+                         */
                         $kembali = null;
                     }
                     ?>

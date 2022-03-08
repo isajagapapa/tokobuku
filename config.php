@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *  koneksi variabel untuk mengoneksikan ke database
+ */
+
 $koneksi = mysqli_connect("localhost", "root", "", "ucptokobuku");
 
 if (mysqli_connect_errno()) {
